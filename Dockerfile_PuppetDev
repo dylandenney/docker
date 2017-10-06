@@ -1,0 +1,53 @@
+# Pull base image
+FROM centos
+
+MAINTAINER Dylan_Denney
+
+# Update the system
+#RUN yum update
+
+# Install ruby requirments
+RUN yum -y install ncurses-devel libffi-devel readline-devel sqlite-devel zlib-devel libyaml-devel openssl-devel
+#RUN yum -y install ncurses-devel 
+
+# Install neeed and wanted packages
+#RUN yum -y groupinstall "Development tools"
+RUN yum -y install wget which man gcc make git
+
+# Installing VIM
+RUN git clone https://github.com/vim/vim.git
+RUN cd vim/src && ./configure && make && make install
+
+# Installing VIM Pathogen
+RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+# Installing vim ale and vim puppet
+RUN cd ~/.vim/bundle && \
+  git clone https://github.com/w0rp/ale.git && git clone https://github.com/rodjek/vim-puppet.git
+
+# Placing my .vimrc file
+RUN git clone https://github.com/dylandenney/vimrc.git && /bin/cp -f vimrc/vimrc /root/.vimrc && \
+  rm -fr vimrc
+
+# Installing Ruby 2.4.2
+RUN wget https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.2.tar.gz && \
+  tar -xf ruby-2.4.2.tar.gz && \
+  cd ruby-2.4.2 && \
+  ./configure && \
+  make && \
+  make install
+
+# Attempt to install RVM but doesn't install
+#RUN gpg --keyserver hkp://keys.gnupg.net:80 --recv-keys D39DC0E3
+#RUN curl -sSL https://get.rvm.io | bash -s stable --ruby
+#RUN source /usr/local/rvm/scripts/rvm
+
+
+# Install Puppet Gems 
+RUN gem install puppet
+RUN gem install puppet-lint
+RUN gem install puppet-syntax
+RUN gem install puppet-syntax
+RUN gem install puppetlabs_spec_helper
+RUN gem install rspec-puppet-facts
