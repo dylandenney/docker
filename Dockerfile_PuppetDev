@@ -4,12 +4,14 @@ FROM centos
 MAINTAINER Dylan_Denney
 
 # Update the system
-RUN yum update
+#RUN yum update
 
 # Install ruby requirments
 RUN yum -y install ncurses-devel libffi-devel readline-devel sqlite-devel zlib-devel libyaml-devel openssl-devel
+#RUN yum -y install ncurses-devel 
 
 # Install neeed and wanted packages
+#RUN yum -y groupinstall "Development tools"
 RUN yum -y install wget which man gcc make git
 
 # Installing VIM
@@ -49,3 +51,7 @@ RUN gem install puppet-syntax
 RUN gem install puppet-syntax
 RUN gem install puppetlabs_spec_helper
 RUN gem install rspec-puppet-facts
+
+# Install Puppet PDK
+RUN wget -O pdk.latest.el7.x86_64.rpm "https://pm.puppetlabs.com/cgi-bin/pdk_download.cgi?dist=el&rel=7&arch=x86_64&ver=latest"
+RUN rpm -ivh pdk.latest.el7.x86_64.rpm
