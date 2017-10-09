@@ -4,13 +4,12 @@ FROM centos
 MAINTAINER Dylan_Denney
 
 # Update the system
-#RUN yum update
+RUN yum update
 
 # Install ruby requirments
 RUN yum -y install ncurses-devel libffi-devel readline-devel sqlite-devel zlib-devel libyaml-devel openssl-devel
-#RUN yum -y install ncurses-devel 
 
-# Install neeed and wanted packages
+# Install needed and wanted packages
 #RUN yum -y groupinstall "Development tools"
 RUN yum -y install wget which man gcc make git
 
@@ -37,12 +36,6 @@ RUN wget https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.2.tar.gz && \
   ./configure && \
   make && \
   make install
-
-# Attempt to install RVM but doesn't install
-#RUN gpg --keyserver hkp://keys.gnupg.net:80 --recv-keys D39DC0E3
-#RUN curl -sSL https://get.rvm.io | bash -s stable --ruby
-#RUN source /usr/local/rvm/scripts/rvm
-
 
 # Install Puppet Gems 
 RUN gem install puppet
