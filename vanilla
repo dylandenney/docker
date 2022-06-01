@@ -5,8 +5,9 @@
 yum update
 
 # Install ruby requirments
- dnf --enablerepo=powertools install libyaml-devel
- yum -y install ncurses-devel libffi-devel readline-devel sqlite-devel zlib-devel  openssl-devel
+ dnf --enablerepo=powertools 
+ dnf install epel-release -y
+ yum -y install ncurses-devel libffi-devel readline-devel sqlite-devel zlib-devel openssl-devel libyaml-devel
 
 # Install needed and wanted packages
 # yum -y groupinstall "Development tools"
@@ -17,8 +18,8 @@ yum update
  git clone https://github.com/vim/vim.git
  cd vim/src && ./configure && make && make install
  rm -fr vim
-echo " export PATH="/usr/local/bin:$PATH"" >> /etc/environment 
-
+ echo " export PATH="/usr/local/bin:$PATH"" >> /etc/environment 
+ source /etc/environment
 
 # Installing VIM Pathogen
  mkdir -p ~/.vim/autoload ~/.vim/bundle && \
@@ -56,7 +57,6 @@ echo " export PATH="/usr/local/bin:$PATH"" >> /etc/environment
 
 # Further configuration for various tools like VPN, flameshot ,etc
 
- dnf install epel-release
  yum install -y https://dl.technion.ac.il/docs/cis/public/ssl-vpn/ps-pulse-centos-rhel.rpm
  yum install flameshot -y
  yum install remmina -y
