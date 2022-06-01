@@ -2,7 +2,7 @@
 #MAINTAINER Dylan_Denney
 
 # Update the system
- yum update
+yum update
 
 # Install ruby requirments
  dnf --enablerepo=powertools install libyaml-devel
