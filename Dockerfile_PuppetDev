@@ -29,10 +29,10 @@ RUN cd ~/.vim/bundle && \
 RUN git clone https://github.com/dylandenney/vimrc.git && /bin/cp -f vimrc/vimrc /root/.vimrc && \
   rm -fr vimrc
 
-# Installing Ruby 2.4.2
-RUN wget https://cache.ruby-lang.org/pub/ruby/2.4/ruby-2.4.2.tar.gz && \
-  tar -xf ruby-2.4.2.tar.gz && \
-  cd ruby-2.4.2 && \
+# Installing Ruby 3.1.2
+RUN wget https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.2.tar.gz && \
+  tar -xf ruby-3.1.2.tar.gz && \
+  cd ruby-3.1.2 && \
   ./configure && \
   make && \
   make install
@@ -46,5 +46,5 @@ RUN gem install puppetlabs_spec_helper
 RUN gem install rspec-puppet-facts
 
 # Install Puppet PDK
-RUN wget -O pdk.latest.el7.x86_64.rpm "https://pm.puppetlabs.com/cgi-bin/pdk_download.cgi?dist=el&rel=7&arch=x86_64&ver=latest"
-RUN rpm -ivh pdk.latest.el7.x86_64.rpm
+RUN wget -O pdk.latest.el8.x86_64.rpm "https://pm.puppet.com/cgi-bin/pdk_download.cgi?dist=el&rel=8&arch=x86_64&ver=latest"
+RUN rpm -ivh pdk.latest.el8.x86_64.rpm
