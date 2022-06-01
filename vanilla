@@ -1,0 +1,55 @@
+#!/bin/bash
+#MAINTAINER Dylan_Denney
+
+# Update the system
+ yum update
+
+# Install ruby requirments
+ dnf --enablerepo=powertools install libyaml-devel
+ yum -y install ncurses-devel libffi-devel readline-devel sqlite-devel zlib-devel  openssl-devel
+
+# Install needed and wanted packages
+# yum -y groupinstall "Development tools"
+ yum -y install wget which man gcc make git
+
+# Installing VIM
+ yum remove vim
+ git clone https://github.com/vim/vim.git
+ cd vim/src && ./configure && make && make install
+ rm -fr vim
+echo " export PATH="/usr/local/bin:$PATH"" >> /etc/environment 
+
+
+# Installing VIM Pathogen
+ mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+  curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+# Installing vim ale and vim puppet
+
+ cd ~/.vim/bundle && \
+  git clone https://github.com/w0rp/ale.git && git clone https://github.com/rodjek/vim-puppet.git
+
+# Placing my .vimrc file
+ git clone https://github.com/dylandenney/vimrc.git && /bin/cp -f vimrc/vimrc ~/.vimrc && \
+  rm -fr vimrc
+
+# Installing Ruby 3.1.2
+ wget https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.2.tar.gz && \
+  tar -xf ruby-3.1.2.tar.gz && \
+  cd ruby-3.1.2 && \
+  ./configure && \
+  make && \
+  make install
+
+# Install Puppet Gems 
+ gem install puppet
+ gem install puppet-lint
+ gem install puppet-syntax
+ gem install puppet-syntax
+ gem install puppetlabs_spec_helper
+ gem install rspec-puppet-facts
+
+# Install Puppet PDK
+ wget -O pdk.latest.el8.x86_64.rpm "https://pm.puppet.com/cgi-bin/pdk_download.cgi?dist=el&rel=8&arch=x86_64&ver=latest"
+ rpm -ivh pdk.latest.el8.x86_64.rpm
+
