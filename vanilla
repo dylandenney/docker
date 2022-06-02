@@ -2,7 +2,7 @@
 #MAINTAINER Dylan_Denney
 
 # Update the system
-yum update
+yum update -y
 
 # Install ruby requirments
  dnf --enablerepo=powertools 
@@ -14,7 +14,7 @@ yum update
  yum -y install wget which man gcc make git
 
 # Installing VIM
- yum remove vim
+ yum remove vim -y
  git clone https://github.com/vim/vim.git
  cd vim/src && ./configure && make && make install
  rm -fr vim
